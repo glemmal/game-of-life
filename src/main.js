@@ -1,8 +1,7 @@
 var gameOfLife = (function () {
-  
+   
   var $canvas = document.getElementsByTagName('canvas')[0]
   var $button = document.getElementsByTagName('button')[0]
-  var $image = new window.Image()
   
   var width = $canvas.offsetWidth
   var amountBoxesPerLine = 150
@@ -121,7 +120,7 @@ var gameOfLife = (function () {
         if (cell.alive) {
           ctx.fillStyle = '#F44336'
           ctx.fillRect(boxWidth * x, boxHeight * y, boxWidth, boxHeight)
-        } else if(cell.active) {
+        } else if (cell.active) {
           ctx.fillStyle = 'yellow'
           ctx.fillRect(boxWidth * x, boxHeight * y, boxWidth, boxHeight)
         }
@@ -134,4 +133,4 @@ var gameOfLife = (function () {
   
 })
 
-window.gameOfLife()
+gameOfLife()
