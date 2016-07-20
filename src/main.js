@@ -11,12 +11,11 @@ var gameOfLife = (function () {
   var boxHeight = boxWidth
   var height = boxWidth * amountBoxesPerColumn
   var currentMaze = []
+  var ctx = $canvas.getContext('2d')
+  var clicking = false
 
   $canvas.width = $canvas.offsetWidth
   $canvas.height = height
-
-  var ctx = $canvas.getContext('2d')
-  var clicking = false
 
   $canvas.addEventListener('mousedown', function() {
     clicking = true
@@ -33,7 +32,7 @@ var gameOfLife = (function () {
 
   $button.addEventListener('click', function (event) {
     setInterval(function () {
-      liveStep(currentMaze)
+      currentMaze = liveStep(currentMaze)
       draw(currentMaze)
     }, 100)
   })
@@ -93,11 +92,13 @@ var gameOfLife = (function () {
   }
 
   var liveStep = function (maze) {
+    var copy = maze.slice()
     for (var x = 0; x < amountBoxesPerLine; x++) {
       for (var y = 0; y < amountBoxesPerColumn; y++) {
-        maze[x][y] = deadOrAlive(maze, x, y)
+        copy[x][y] = deadOrAlive(maze, x, y)
       }
     }
+    return copy
   }
 
   var createMaze = function () {
@@ -106,8 +107,7 @@ var gameOfLife = (function () {
       maze[x] = []
       for (var y = 0; y < amountBoxesPerColumn; y++) {
         maze[x][y] = {
-          alive: false,
-          active: false
+          alive: false
         }
       }
     }
@@ -118,11 +118,11 @@ var gameOfLife = (function () {
     for (var x = 0; x < maze.length; x++) {
       for (var y = 0; y < maze[x].length; y++) {
         var cell = maze[x][y]
-        if (cell.alive && cell.active) {
-          ctx.fillStyle = 'green'
-          ctx.fillRect(boxWidth * x, boxHeight * y, boxWidth, boxHeight)
-        } else if (!cell.alive && cell.active) {
+        if (cell.alive) {
           ctx.fillStyle = '#F44336'
+          ctx.fillRect(boxWidth * x, boxHeight * y, boxWidth, boxHeight)
+        } else if(cell.active) {
+          ctx.fillStyle = 'yellow'
           ctx.fillRect(boxWidth * x, boxHeight * y, boxWidth, boxHeight)
         }
       }
