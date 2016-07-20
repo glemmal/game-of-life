@@ -1,11 +1,11 @@
-var gameOfLife = (function () {
+window.gameOfLife = (function () {
    
   var $canvas = document.getElementsByTagName('canvas')[0]
   var $button = document.getElementsByTagName('button')[0]
   
   var width = $canvas.offsetWidth
   var amountBoxesPerLine = 150
-  var amountBoxesPerColumn = 90 
+  var amountBoxesPerColumn = 90
   var boxWidth = width / amountBoxesPerLine
   var boxHeight = boxWidth
   var height = boxWidth * amountBoxesPerColumn
@@ -133,4 +133,4 @@ var gameOfLife = (function () {
   
 })
 
-gameOfLife()
+window.gameOfLife()
