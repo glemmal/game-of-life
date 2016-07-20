@@ -120,7 +120,7 @@ window.gameOfLife = (function () {
         if (cell.alive) {
           ctx.fillStyle = '#F44336'
           ctx.fillRect(boxWidth * x, boxHeight * y, boxWidth, boxHeight)
-        } else if (cell.active) {
+        } else if (cell.active && !cell.alive) {
           ctx.fillStyle = 'yellow'
           ctx.fillRect(boxWidth * x, boxHeight * y, boxWidth, boxHeight)
         }
